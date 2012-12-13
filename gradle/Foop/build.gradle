@@ -21,19 +21,7 @@ jettyMulti {
     jMKeyStore = "/opt/servers/jetty-8/etc/tomcat.keystore" ;
     jMKeyStorePassword = "${keystorePass}" ;
     jMScanInterval = 1 ;
-//    jMDeployDeps = ["/home/martin/martin/desa/gradleProjects/Atfsff/Atfsff-server/build/libs/Atfsff-server-1.0.war"] ;
 }
-
-jettyMRun {
-    doFirst  {
-        System.properties['spring.profiles.active'] = "web" ;
-        System.properties['atfsff.apphost'] = 'localhost' ;
-        System.properties['atfsff.appporthttps'] =  8096+3 ;
-        System.properties['atfsff.appporthttp'] = 8096 ;
-    }
-}
-
-
 
 repositories {
 	mavenCentral()
