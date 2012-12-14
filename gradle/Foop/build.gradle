@@ -4,13 +4,13 @@ apply plugin: 'war'
 
 buildscript {
     repositories {
-        maven {
-            url uri('../../../repo')
-        }
+//        maven {
+//            url uri('../../../repo')
+//        }
         mavenCentral()
     }
     dependencies {
-        classpath group: 'uy.com.github.martins1930.gradle', name: 'JettyMulti', version: '1.0'
+        classpath group: 'com.github.martins1930.gradle', name: 'JettyMulti', version: '1.0.0-RELEASE'
     }
 }
 apply plugin: 'jettymulti'
@@ -30,5 +30,5 @@ repositories {
 dependencies {
         compile "org.apache.commons:commons-lang3:3.1@jar"
         runtime "postgresql:postgresql:9.1-901.jdbc4@jar"        
-        providedCompile "javax.servlet:servlet-api:2.5"
+        providedCompile "javax:javaee-api:6.0"
 }
