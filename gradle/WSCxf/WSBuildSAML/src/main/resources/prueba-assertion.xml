@@ -1,0 +1,60 @@
+ 
+<saml:Assertion xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" Version="2.0"
+                 ID="_682C46C8-198A-436C-9E0F-DBBC155DE414" IssueInstant="2008-03-14T17:31:24.781Z">
+
+    <!-- emisor de esta assertion--> 
+    <saml:Issuer>urn:agesic:sts</saml:Issuer>
+
+    <saml:Subject>
+ 
+        <!-- identifica al solicitante original -->
+        <saml:NameID>
+            CN=rolDoctor,O=BPS
+        </saml:NameID>
+
+        <!-- de acuerdo a la especificacion, debe repetirse la identificacion del intermediario en este elemento--> 
+        <saml:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
+            <saml:NameID Format="urn:oasis:names:tc:SAML:2.0:nameid-format:entity">
+                urn:agesic:intermediarioProcesos
+            </saml:NameID>
+            <!-- esta assertion solo debe ser aceptada de la direccion indicada-->
+            <saml:SubjectConfirmationData Address="192.168.10.10"/>
+        </saml:SubjectConfirmation>
+ 
+    </saml:Subject>
+
+    <saml:Conditions NotBefore="2008-03-14T17:31:24.781Z" NotOnOrAfter="2008-03-14T18:31:24.781Z">
+
+        <!-- este token sirve para todos los servicios simples involucrados-->
+        <saml:AudienceRestriction>
+            <saml:Audience>http://pge/ServicioA</saml:Audience>
+            <saml:Audience>http://pge/ServicioB</saml:Audience>
+            <saml:Audience>http://pge/ServicioC</saml:Audience>
+        </saml:AudienceRestriction>
+
+        <!-- se identifica al intermediario (delegado) que actua en nombre del cliente -->
+
+        <saml:Condition xsi:type="del:DelegationRestrictionType" xmlns:del="urn:oasis:names:tc:SAML:2.0:conditions:delegation">
+            <del:Delegate>
+                <saml:NameID Format="urn:oasis:names:tc:SAML:2.0:nameid-format:entity">
+                    urn:agesic:intermediarioProcesos
+                </saml:NameID>
+            </del:Delegate>
+        </saml:Condition>
+          
+    </saml:Conditions>
+ 
+
+  
+    <!-- se indica el nombre del solicitante original -->
+    <!--como en la assertion original, se indica el policyName, pero se distingue que es un token de una orquestacion --> 
+    <saml:AttributeStatement>
+        <saml:Attribute AttributeName='User' AttributeNamespace='urn:agesic:intermediarioProcesos' >
+            <saml:AttributeValue  xsi:type='xs:string'>JuanPedro</saml:AttributeValue>
+        </saml:Attribute>
+    </saml:AttributeStatement>
+        
+    <ds:Signature>...</ds:Signature> <!-- firmado por sts pge -->
+ 
+</saml:Assertion>
+ 

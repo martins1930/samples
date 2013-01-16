@@ -1,0 +1,27 @@
+
+ext {
+    cxf_version = "2.7.2" 
+    spring_version = "3.2.0.RELEASE" 
+    tomcat_dir = "/opt/servers/apache-tomcat-7.0.32" 
+    logback_varsion = "1.0.9@jar"
+    slf4j_version = "1.7.2@jar"
+//    logback_varsion = "1.0.7@jar"
+//    slf4j_version = "1.6.6@jar"
+    
+    cxf_deps = ["org.apache.cxf:cxf-rt-frontend-jaxws:${cxf_version}", 
+		"org.apache.cxf:cxf-rt-transports-http:${cxf_version}", 
+		"org.apache.cxf:cxf-rt-ws-security:${cxf_version}", 
+		"org.apache.cxf:cxf-rt-ws-policy:${cxf_version}" ]
+
+    spring_deps = [ "org.springframework:spring-context:${spring_version}", 
+		    "org.springframework:spring-web:${spring_version}"]
+
+    logback_lib = [ "org.slf4j:slf4j-api:${slf4j_version}", 
+			"ch.qos.logback:logback-classic:${logback_varsion}",
+                     	"ch.qos.logback:logback-core:${logback_varsion}", 
+			"org.slf4j:jcl-over-slf4j:${slf4j_version}",
+			"org.slf4j:jul-to-slf4j:${slf4j_version}" ]
+
+   opensaml_deps = ["org.bouncycastle:bcprov-jdk15:1.45"]  
+
+}

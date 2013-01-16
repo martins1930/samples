@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+  http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+  http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+    <import resource="classpath:service-definition-beans.xml"/>
+
+    <bean id="myPasswordCallback" class="uy.edu.fing.pgrad.pge.wscxf.callback.ServerPasswordCallback" />
+    
+<!-- ws saludador -->     
+    <jaxws:endpoint id="helloS" implementor="#helloServ" address="/HelloWorld">
+        
+
+        <jaxws:inInterceptors>
+           <bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+              <constructor-arg>
+                 <map>
+                    <entry key="action" value="UsernameToken Timestamp"/>
+                    <entry key="passwordType" value="PasswordDigest"/>
+                    <entry key="actor" value="el_actor1"/> 
+                                  
+                    <entry key="passwordCallbackRef">
+                       <ref bean="myPasswordCallback"/>
+                    </entry>
+                    
+                 </map>
+              </constructor-arg>
+           </bean>
+        </jaxws:inInterceptors>
+        
+    </jaxws:endpoint>
+
+<!-- ***********************************************************************-->
+
+<!-- ws calculadora --> 
+    <jaxws:endpoint id="calcS" implementor="#calcServ" address="/Calculator">
+        
+
+        <jaxws:inInterceptors>
+           <bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+              <constructor-arg>
+                 <map>
+                    <entry key="action" value="UsernameToken Timestamp Signature"/>
+                    <entry key="passwordType" value="PasswordDigest"/>
+                    <entry key="signaturePropFile" value="etc/Server_SignVerf.properties"/>
+                    <entry key="signatureKeyIdentifier" value="DirectReference"/>
+                    <entry key="signatureAlgorithm" value="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                    
+                    <entry key="passwordCallbackRef">
+                       <ref bean="myPasswordCallback"/>
+                    </entry>
+                    
+                 </map>
+              </constructor-arg>
+           </bean>
+        </jaxws:inInterceptors>
+        
+    </jaxws:endpoint>
+
+    
+<!-- servicio consulta bps **************************************************-->           
+    <jaxws:endpoint id="cBpsS" implementor="#consultaBpsServ" address="/ConsultaBPS">
+
+        <jaxws:inInterceptors>
+           <bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+              <constructor-arg>
+                 <map>
+                    <entry key="action" value="UsernameToken"/>
+                    <entry key="passwordType" value="PasswordDigest"/>
+                    
+                    <entry key="passwordCallbackRef">
+                       <ref bean="myPasswordCallback"/>
+                    </entry>
+                    
+                 </map>
+              </constructor-arg>
+           </bean>
+        </jaxws:inInterceptors>
+        
+    </jaxws:endpoint>    
+
+
+<!-- servicio consulta DNIC *************************************************-->           
+    <jaxws:endpoint id="cDnicS" implementor="#consultaDnicServ" address="/ConsultaDNIC">
+
+        <jaxws:inInterceptors>
+           <bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+              <constructor-arg>
+                 <map>
+                    <entry key="action" value="UsernameToken"/>
+                    <entry key="passwordType" value="PasswordDigest"/>
+                    
+                    <entry key="passwordCallbackRef">
+                       <ref bean="myPasswordCallback"/>
+                    </entry>
+                    
+                 </map>
+              </constructor-arg>
+           </bean>
+        </jaxws:inInterceptors>
+        
+    </jaxws:endpoint>    
+    
+
+</beans>

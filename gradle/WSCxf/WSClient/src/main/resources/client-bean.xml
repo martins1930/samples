@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+    <!--<import resource="classpath:/META-INF/cxf/cxf.xml"/>-->
+    <bean id="myPasswordCallback" class="uy.edu.fing.pgrad.pge.wscxf.callback.ClientPasswordCallback" />
+    <bean id="myCustomAction" class="uy.edu.fing.pgrad.pge.wscxf.action.PrintAction" />
+    
+
+    <bean id="ut_actor1" class="org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor">
+        <constructor-arg>
+            <map>
+                <entry key="action" value="UsernameToken Timestamp"/>
+                <!--<entry key="action" value="UsernameToken Timestamp SAMLTokenUnsigned"/>-->
+
+                <entry key="actor" value="el_actor1"/> 
+                <entry key="passwordType" value="PasswordDigest"/>
+                <entry key="user" value="pepe"/>
+                <entry key="samlPropFile" value="etc/saml_cli.properties"/>
+                <entry key="passwordCallbackRef">
+                    <ref bean="myPasswordCallback"/>
+                </entry>
+
+            </map>
+        </constructor-arg>
+    </bean>                 
+
+    <bean id="custom_action" class="org.apache.cxf.ws.security.wss4j.uy.MyWSSecurityInterceptor">
+        <constructor-arg>
+            <map>
+                <entry key="action" value="UsernameToken Timestamp 3345561"/>
+
+                <!-- accion particular -->
+                <entry key="wss4j.action.map">
+                    <map key-type="java.lang.Integer" value-type="java.lang.Object">
+                        <entry key="3345561" value-ref="myCustomAction"/>
+                    </map>
+                </entry>       
+                
+                <entry key="actor" value="el_actor2"/> 
+                <entry key="passwordType" value="PasswordDigest"/>
+                <entry key="user" value="Alice"/>
+                <entry key="passwordCallbackRef">
+                    <ref bean="myPasswordCallback"/>
+                </entry>                                          
+
+            </map>
+        </constructor-arg>
+    </bean>
+    
+    <bean id="custom_action2" class="org.apache.cxf.ws.security.wss4j.uy.MyWSSecurityInterceptor">
+        <constructor-arg>
+            <map>
+                <entry key="action" value="UsernameToken Timestamp 3345561"/>
+
+                <!-- accion particular -->
+                <entry key="wss4j.action.map">
+                    <map key-type="java.lang.Integer" value-type="java.lang.Object">
+                        <entry key="3345561" value-ref="myCustomAction"/>
+                    </map>
+                </entry>       
+                
+                <entry key="actor" value="el_actor3"/> 
+                <entry key="passwordType" value="PasswordDigest"/>
+                <entry key="user" value="abcd"/>
+                <entry key="passwordCallbackRef">
+                    <ref bean="myPasswordCallback"/>
+                </entry>                                          
+
+            </map>
+        </constructor-arg>
+    </bean>
+    
+
+    <jaxws:client id="helloClient"
+                  serviceClass="uy.edu.fing.pgrad.pge.wscxf.Hello"
+                  address="http://localhost:8080/WSServer/services/HelloWorld" >
+
+            
+
+        <jaxws:outInterceptors>
+                <ref bean="ut_actor1" />
+                <ref bean="custom_action" />
+                <ref bean="custom_action2" />
+        </jaxws:outInterceptors>
+
+      
+                        
+    </jaxws:client>
+
+
+</beans>
+

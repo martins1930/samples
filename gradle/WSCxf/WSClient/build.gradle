@@ -1,0 +1,25 @@
+
+apply plugin : 'java'
+apply plugin : 'application' 
+
+//mainClassName = "uy.edu.fing.pgrad.pge.wscxfcli.Main2"
+mainClassName = "uy.edu.fing.pgrad.pge.wscxfcli.Main1"
+//mainClassName = "uy.edu.fing.pgrad.pge.wscxfcli.Main3"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile project(":WSShared")
+    compile logback_lib
+    compile cxf_deps 
+    compile spring_deps
+    compile opensaml_deps
+}
+
+task debug (dependsOn: classes, type: JavaExec) {
+    main = project.mainClassName;
+    classpath = sourceSets.main.runtimeClasspath;    
+    debug = true;
+}

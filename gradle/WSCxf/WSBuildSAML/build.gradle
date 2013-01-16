@@ -1,0 +1,14 @@
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = "uy.edu.fing.pgrad.pge.saml.MakeSAML"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile logback_lib
+    compile "org.opensaml:opensaml:2.5.1-1"
+}
