@@ -1,0 +1,35 @@
+
+apply plugin: 'java'
+apply plugin: 'war'
+
+buildscript {
+    repositories {
+        maven {
+            url "http://localhost:8081/nexus/content/repositories/releases/"
+//            url "http://localhost:8081/nexus/content/repositories/snapshots/"
+        }
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.github.martins1930.gradle:glassfish-plugin:0.0.2-RELEASE'
+    }
+}
+apply plugin: 'glassfish'
+
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
+
+repositories {
+    maven {
+        url "http://localhost:8081/nexus/content/repositories/releases/"
+//        url "http://localhost:8081/nexus/content/repositories/snapshots/"
+    }    
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.apache.commons:commons-lang3:3.1@jar"
+    runtime "postgresql:postgresql:9.1-901.jdbc4@jar"        
+}
