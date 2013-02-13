@@ -11,13 +11,17 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.github.martins1930.gradle:glassfish-plugin:0.0.2-RELEASE'
+        classpath 'com.github.martins1930.gradle:glassfish-plugin:0.1.0-RELEASE'
     }
 }
 apply plugin: 'glassfish'
 
 configurations.all {
     resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
+glassfish {
+    gfPort = 8096
 }
 
 

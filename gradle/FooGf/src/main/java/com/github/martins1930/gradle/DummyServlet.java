@@ -5,8 +5,12 @@
 
 package com.github.martins1930.gradle;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URL;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,12 +28,32 @@ public class DummyServlet extends HttpServlet {
         try {
             String capitalizedText = "hi this text is capitalized" ;
             capitalizedText = WordUtils.capitalize(capitalizedText);
+            
+            URL resourceText = Thread.currentThread().getContextClassLoader().getResource("dummyf.txt");
+            
+            String textContent = "";
+            if (resourceText!=null) {
+                File fileText = new File(resourceText.getPath());
+                FileReader fileReader = new FileReader(fileText);
+                BufferedReader buffReader = new BufferedReader(fileReader);
+
+                String lineText = buffReader.readLine() ;
+                while (lineText!=null) {                    
+                    textContent += lineText  ;
+                    lineText = buffReader.readLine();
+                }
+                
+            }
+            else {
+                textContent = "emptyFile ";
+            }
+            
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet Dummy</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Dummy!! " + capitalizedText + "</h1>");
+            out.println("<h1>Servlet Dummy1!! "+ textContent + capitalizedText + "</h1>");
             out.println("</body>");
             out.println("</html>");
         } finally {            
