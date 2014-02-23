@@ -5,13 +5,13 @@ apply plugin: 'war'
 buildscript {
     repositories {
         maven {
-            url "http://localhost:8081/nexus/content/repositories/releases/"
-//            url "http://localhost:8081/nexus/content/repositories/snapshots/"
+//            url "http://localhost:8081/nexus/content/repositories/releases/"
+            url "http://localhost:8081/nexus/content/repositories/snapshots/"
         }
         mavenCentral()
     }
     dependencies {
-        classpath 'com.github.martins1930.gradle:glassfish-plugin:0.1.0-RELEASE'
+        classpath 'com.github.martins1930.gradle:glassfish-plugin:0.1.1-SNAPSHOT'
     }
 }
 apply plugin: 'glassfish'
@@ -27,8 +27,8 @@ glassfish {
 
 repositories {
     maven {
-        url "http://localhost:8081/nexus/content/repositories/releases/"
-//        url "http://localhost:8081/nexus/content/repositories/snapshots/"
+//        url "http://localhost:8081/nexus/content/repositories/releases/"
+        url "http://localhost:8081/nexus/content/repositories/snapshots/"
     }    
     mavenCentral()
 }

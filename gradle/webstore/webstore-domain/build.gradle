@@ -1,0 +1,7 @@
+
+dependencies {
+
+    compile 'org.hibernate:hibernate-validator:5.0.3.Final'
+    compile 'c3p0:c3p0:0.9.1.2'
+    compile "org.springframework:spring-jdbc:${spring_version}"
+}
