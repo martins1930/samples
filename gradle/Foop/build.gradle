@@ -4,22 +4,22 @@ apply plugin: 'war'
 
 buildscript {
     repositories {
-//        maven {
-//            url uri('../../../repo')
-//        }
+        maven {
+            url uri('../../../repo')
+        }
         mavenCentral()
     }
     dependencies {
-        classpath group: 'com.github.martins1930.gradle', name: 'JettyMulti', version: '1.2.0-RELEASE'
+        classpath group: 'com.github.martins1930.gradle', name: 'JettyMulti', version: '1.2.1-RELEASE'
     }
 }
 apply plugin: 'jettymulti'
 
 jettyMulti {
     jMPort = 8096 ;
-    jMPortSecure = 8443 ;
-    jMKeyStore = "/opt/servers/jetty-8/etc/tomcat.keystore" ;
-    jMKeyStorePassword = "${keystorePass}" ;
+    // jMPortSecure = 8443 ;
+    // jMKeyStore = "/opt/servers/jetty-8/etc/tomcat.keystore" ;
+    // jMKeyStorePassword = "${keystorePass}" ;
     jMScanInterval = 1 ;
 }
 

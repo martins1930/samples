@@ -1,0 +1,16 @@
+
+#container {
+    padding: 5px;
+}
+
+.done-true {
+    text-decoration: line-through;
+    color: grey;
+}
+
+a, a:focus, .btn, .btn:focus { outline:none; }
+
+#container input {
+    margin: 5px;
+
+}

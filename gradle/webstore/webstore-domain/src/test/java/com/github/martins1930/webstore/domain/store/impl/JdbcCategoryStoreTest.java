@@ -39,4 +39,18 @@ public class JdbcCategoryStoreTest {
 
         assertNull("This category must not exists!! " + categoryName, notExistsCategory);
     }
+
+    @Test
+    public void shouldInsertNewCategory() throws Exception {
+        String categoryName = "Games";
+        String categoryDesc = "GamesCategory!!";
+        assertNull("The category "+categoryName+" must not exists in the database.", categoryStore.findByName(categoryName));
+
+        Category categoryToInsert = Category.createCategory(0, categoryName, categoryDesc);
+        categoryStore.save(categoryToInsert);
+
+        Category persistedCategory = categoryStore.findByName(categoryName);
+        assertNotNull("Not Found the category "+categoryName, persistedCategory);
+        assertEquals(persistedCategory, categoryToInsert);
+    }
 }

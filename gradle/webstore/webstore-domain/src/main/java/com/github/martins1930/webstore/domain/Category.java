@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 public class Category {
 
     @NotNull
-    private Long id;
+    private Integer id;
 
     @NotBlank
     private String name;
@@ -15,11 +15,11 @@ public class Category {
     @NotBlank
     private String description;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -39,7 +39,7 @@ public class Category {
         this.description = description;
     }
 
-    public static Category createCategory(long id, String categoryName, String description) {
+    public static Category createCategory(Integer id, String categoryName, String description) {
         Category category = new Category();
         category.setId(id);
         category.setName(categoryName);
